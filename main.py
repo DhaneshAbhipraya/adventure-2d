@@ -93,13 +93,6 @@ def main():
             elif showat(x,y) == '\\':
                 # set to '/'
                 setat(x,y,'/')
-            
-            # if on 'o'
-            if showat(x,y) == 'o':
-                # set to 'x'
-                setat(x,y,'x')
-                # set to 'o'
-                setat(x,y,'o')
 
 
 if __name__ == "__main__":
