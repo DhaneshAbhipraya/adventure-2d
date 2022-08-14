@@ -12,7 +12,7 @@ for i in options:
         except: raise ValueError(f"{field} must be 1 or 0")
         break
 
-def map():
+def map_():
     global x,y,grid,onupdate,running
     x=1
     y=6
@@ -25,7 +25,7 @@ def map():
         ["#"," "," "," "," "," ","#"],
         ["#"," "," ","/"," "," ","#"],
         ["#"," "," "," "," "," ","#"],
-        ["#","o"," "," "," "," ","#"],
+        ["#"," "," "," "," "," ","#"],
         ["#","#","#","#","#","#","#"]
     ]
     def onupdate():
@@ -43,7 +43,7 @@ def map():
 
 
 def main():
-    global x,y,grid,onupdate,running,showat,setat,atpos,setTimeout,map
+    global x,y,grid,onupdate,running,showat,setat,atpos,setTimeout,map_
     while running:
         print("\033[H\033[J",end="")
         onupdate()
@@ -105,7 +105,7 @@ if __name__ == "__main__":
         viewdisty = _viewdist
         running = True
 
-        map()
+        map_()
 
     reset()
 
