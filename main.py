@@ -1,7 +1,4 @@
 from msvcrt import *
-from random import randint as r
-from threading import Thread
-from time import sleep as sl
 
 def map_():
     global x,y,grid,onupdate,running
