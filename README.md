@@ -7,6 +7,8 @@
 * Custom maps with customizable code
 * Triggers
   * Levers
+* For development
+  * Debug mode
 
 Todo:
 

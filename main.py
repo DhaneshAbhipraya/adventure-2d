@@ -1,5 +1,17 @@
 from msvcrt import *
 
+f=open("options.txt","r")
+options=f.read().splitlines()
+f.close()
+# field: debug
+for i in options:
+    field=i.split('=')[0]
+    value=i.split('=')[1]
+    if field == "debug":
+        try: debug = bool(value)
+        except: raise ValueError(f"{field} must be True or False")
+        break
+
 def map_():
     global x,y,grid,onupdate,running
     x=1
@@ -35,7 +47,7 @@ def main():
     while running:
         print("\033[H\033[J",end="")
         onupdate()
-        print(x,y)
+        print(x,y) if debug else None
 
         
         print("┌"+"─"*viewdistx+"┐")
