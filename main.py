@@ -1,14 +1,7 @@
 from msvcrt import *
-from rotatescreen import *
 from random import randint as r
 from threading import Thread
 from time import sleep as sl
-
-def setTimeout(handler, timeout: int) -> None:
-    def cache0():
-        sl(timeout/1000)
-        handler()
-    Thread(target=cache0).start()
 
 def map_():
     global x,y,grid,onupdate,running
