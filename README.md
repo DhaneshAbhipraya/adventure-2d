@@ -17,6 +17,7 @@ Todo:
 ## Requirements
 
 * Python 3.9+
+* More [here](./requirements.txt)
 
 ## Running
 
