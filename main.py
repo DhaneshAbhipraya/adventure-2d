@@ -126,10 +126,13 @@ if __name__ == "__main__":
 
     def move(dx,dy):
         global x,y
+        if debug: print(showat(x+dx,y+dy))
         
         if showat(x+dx,y+dy) != "#":
             x += dx
             y += dy
+        elif debug:
+            print("move blocked")
     # hide cursor
     print("\033[?25l")
 
