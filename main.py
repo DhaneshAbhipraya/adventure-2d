@@ -8,11 +8,11 @@ for i in options:
     field=i.split('=')[0]
     value=i.split('=')[1]
     if field == "debug":
-        try: debug = bool(value)
-        except: raise ValueError(f"{field} must be True or False")
+        try: debug = bool(int(value))
+        except: raise ValueError(f"{field} must be 1 or 0")
         break
 
-def map_():
+def map():
     global x,y,grid,onupdate,running
     x=1
     y=6
@@ -43,7 +43,7 @@ def map_():
 
 
 def main():
-    global x,y,grid,onupdate,running,showat,setat,atpos,setTimeout,map_
+    global x,y,grid,onupdate,running,showat,setat,atpos,setTimeout,map
     while running:
         print("\033[H\033[J",end="")
         onupdate()
@@ -105,7 +105,7 @@ if __name__ == "__main__":
         viewdisty = _viewdist
         running = True
 
-        map_()
+        map()
 
     reset()
 
