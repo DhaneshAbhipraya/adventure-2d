@@ -97,6 +97,11 @@ def main():
             elif showat(x,y) == '\\':
                 # set to '/'
                 setat(x,y,'/')
+        # R
+        elif char == b'R' and debug:
+            # restart the program
+            reset()
+            main()
 
 
 if __name__ == "__main__":
