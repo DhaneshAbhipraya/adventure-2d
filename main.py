@@ -67,8 +67,10 @@ def main():
 
         # input a single character
         char = getch()
+        print(char) if debug else None
         if char == b'\x00':
             char2 = getch()
+            print(char2) if debug else None
             # up arrow
             if char2 == b'H':
                 move(0,-1)
@@ -131,8 +133,6 @@ if __name__ == "__main__":
         if showat(x+dx,y+dy) != "#":
             x += dx
             y += dy
-        elif debug:
-            print("move blocked")
     # hide cursor
     print("\033[?25l")
 
