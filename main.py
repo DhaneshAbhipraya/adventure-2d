@@ -97,8 +97,8 @@ def main():
             elif showat(x,y) == '\\':
                 # set to '/'
                 setat(x,y,'/')
-        # R
-        elif char == b'R' and debug:
+        # r
+        elif char == b'r' and debug:
             # restart the program
             reset()
             main()
