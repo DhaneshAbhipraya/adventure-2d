@@ -212,9 +212,11 @@ if __name__ == "__main__":
             msg=msg.replace("$r","\033[0m")
             print(msg)
             after()
+
     def stop():
         global running
         running = False
+
     def setvar(var:str,val):
         global v
         v[var] = val
