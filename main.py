@@ -46,7 +46,7 @@ def map_():
         
         def onkeypress(key):
             global x,y,grid,running,oninteract,onkeypress,setvar,getvar,showat,setat,atpos,map_,onkeypress,oninteract,onkeypress,onupdate,debug
-            if key == b'h' and atpos(2,6):
+            if key == b'h' and atpos(2,6) and getvar("t1"):
                 goto(1,8)
         
         messageat(1,6,"Press arrow keys to move.", getvar("t1"))
@@ -63,6 +63,14 @@ def map_():
             setat(2,6," ")
             setat(1,5," ")
             setat(2,5," ")
+            setat(0,8," ")
+            setat(1,8," ")
+            setat(2,8," ")
+            setat(3,8," ")
+            setat(0,9," ")
+            setat(1,9," ")
+            setat(2,9," ")
+            setat(3,9," ")
             setvar("t1",False)
 
         messageat(3,1,"The tutorial is over.",after=stop)
