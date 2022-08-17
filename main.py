@@ -43,7 +43,7 @@ def map_():
 
 
 def main():
-    global x,y,grid,onupdate,running,showat,setat,atpos,setTimeout,map_
+    global x,y,grid,onupdate,running,showat,setat,atpos,map_
     while running:
         print("\033[H\033[J",end="")
         onupdate()
