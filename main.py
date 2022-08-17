@@ -14,7 +14,7 @@ for i in options:
         break
 
 def map_():
-    global x,y,grid,onupdate,running,oninteract
+    global x,y,grid,onupdate,running,oninteract,showat,setat,atpos,setvar,getvar,map_,onkeypress,oninteract,onkeypress,onupdate,debug,onload
     x=1
     y=6
     # wall: "#"
@@ -31,26 +31,29 @@ def map_():
         ["#","h","b","#"," "," "," "],
         ["#","#","#","#"," "," "," "],
     ]
+    def onload():
+        global x,y,grid,running,oninteract,onkeypress,setvar,getvar,showat,setat,atpos,map_,onkeypress,oninteract,onkeypress,onupdate,debug
+        # initial msg vars
+        setvar("t1",True)
+        setvar("t2",True)
+
     def onupdate():
-        global x,y,grid,running,oninteract,onkeypress
+        global x,y,grid,running,oninteract,onkeypress,setvar,getvar,showat,setat,atpos,map_,onkeypress,oninteract,onkeypress,onupdate,debug
         if showat(3,4) == "\\":
             setat(3,2," ")
         else:
             setat(3,2,"#")
         
         def onkeypress(key):
-            global x,y,grid,running,oninteract,onkeypress
+            global x,y,grid,running,oninteract,onkeypress,setvar,getvar,showat,setat,atpos,map_,onkeypress,oninteract,onkeypress,onupdate,debug
             if key == b'h' and atpos(2,6):
                 goto(1,8)
-
-        # initial msg vars
-        setvar("t1",True)
         
         messageat(1,6,"Press arrow keys to move.", getvar("t1"))
-        messageat(2,6,"Press 'h' for help.\n$1This will disappear after you go.$r",before=lambda: setvar("t1",False))
+        messageat(2,6,"Press 'h' for help.\n$1This will disappear after you go.$r",getvar("t1"))
         messageat(1,8,"Go to the slash '/'.\nGo right to go back.")
-        messageat(3,4,"Press [space] to interact.",showat(3,4)=="/")
-        messageat(3,4,"Go to the 'W'",showat(3,4)=="\\")
+        messageat(3,4,"Press [space] to interact.",showat(3,4)=="/"and getvar("t2"))
+        messageat(3,4,"Go to the 'W'",showat(3,4)=="\\",lambda:setvar("t2",False))
         
         if atpos(2,8):
             goto(3,6)
@@ -60,14 +63,19 @@ def map_():
             setat(2,6," ")
             setat(1,5," ")
             setat(2,5," ")
+            setvar("t1",False)
 
         messageat(3,1,"The tutorial is over.",after=stop)
+        if atpos(3,1):
+            sl(1)
+            print("Press any key to continue.")
 
 
 
 
 def main():
-    global x,y,grid,onupdate,running,showat,setat,atpos,map_,oninteract
+    global x,y,grid,onupdate,running,showat,setat,atpos,map_,oninteract,onload,onkeypress,oninteract,onkeypress,onupdate,debug
+    onload()
     while running:
         print("\033[H\033[J",end="")
         try: onupdate()
