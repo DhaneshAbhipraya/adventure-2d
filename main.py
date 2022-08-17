@@ -1,4 +1,3 @@
-from typing import Any
 from libs import *
 
 f=open("options.txt","r")
