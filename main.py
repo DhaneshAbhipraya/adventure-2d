@@ -1,4 +1,4 @@
-from msvcrt import *
+from libs import *
 
 f=open("options.txt","r")
 options=f.read().splitlines()
@@ -13,7 +13,7 @@ for i in options:
         break
 
 def map_():
-    global x,y,grid,onupdate,running
+    global x,y,grid,onupdate,running,oninteract
     x=1
     y=6
     # wall: "#"
@@ -29,11 +29,16 @@ def map_():
         ["#","#","#","#","#","#","#"]
     ]
     def onupdate():
-        global x,y,grid,running
+        global x,y,grid,running,oninteract,onkeypress
         if showat(3,4) == "\\":
             setat(3,2," ")
         else:
             setat(3,2,"#")
+        
+        def onkeypress(key):
+            global x,y,grid,running,oninteract,onkeypress
+            if key == b'c':
+                goto(3,4)
         
         if atpos(3,1):
             print("Congratulations! You escaped the maze!\nPress any key to exit.")
@@ -43,10 +48,11 @@ def map_():
 
 
 def main():
-    global x,y,grid,onupdate,running,showat,setat,atpos,map_
+    global x,y,grid,onupdate,running,showat,setat,atpos,map_,oninteract
     while running:
         print("\033[H\033[J",end="")
-        onupdate()
+        try: onupdate()
+        except NameError: pass
         print(x,y) if debug else None
 
         
@@ -67,6 +73,8 @@ def main():
 
         # input a single character
         char = getch()
+        try: onkeypress(char)
+        except NameError: pass
         print(char) if debug else None
         if char == b'\x00':
             char2 = getch()
@@ -89,6 +97,8 @@ def main():
             break
         # space
         elif char == b' ':
+            try: oninteract()
+            except NameError: pass
             # if on '/'
             if showat(x,y) == '/':
                 # set to '\'
@@ -101,7 +111,7 @@ def main():
         elif char == b'r' and debug:
             # restart the program
             reset()
-            main()
+            exec(open("main.py").read())
 
 
 if __name__ == "__main__":
@@ -135,9 +145,15 @@ if __name__ == "__main__":
         global x,y
         if debug: print(showat(x+dx,y+dy))
         
-        if showat(x+dx,y+dy) != "#":
+        if showat(x+dx,y) != "#":
             x += dx
+        if showat(x,y+dy) != "#":
             y += dy
+    
+    def goto(x_,y_):
+        global x,y
+        x = x_
+        y = y_
     # hide cursor
     print("\033[?25l")
 
