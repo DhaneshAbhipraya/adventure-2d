@@ -146,7 +146,7 @@ def main():
         elif char == b'r' and debug:
             # restart the program
             reset()
-            exec(open("main.py").read())
+            exec(open("main.py",encoding="unicode").read())
 
 
 if __name__ == "__main__":
