@@ -1,3 +1,4 @@
+from typing import Any
 from libs import *
 
 f=open("options.txt","r")
@@ -20,13 +21,15 @@ def map_():
     # empty: " "
     grid = [
         [" "," ","#","#","#"," "," "],
-        [" "," ","#"," ","#"," "," "],
+        [" "," ","#","W","#"," "," "],
         ["#","#","#","#","#","#","#"],
         ["#"," "," "," "," "," ","#"],
         ["#"," "," ","/"," "," ","#"],
-        ["#"," "," "," "," "," ","#"],
-        ["#"," "," "," "," "," ","#"],
-        ["#","#","#","#","#","#","#"]
+        ["#","#","#"," "," "," ","#"],
+        ["#","?","!"," "," "," ","#"],
+        ["#","#","#","#","#","#","#"],
+        ["#","h","b","#"," "," "," "],
+        ["#","#","#","#"," "," "," "],
     ]
     def onupdate():
         global x,y,grid,running,oninteract,onkeypress
@@ -37,12 +40,28 @@ def map_():
         
         def onkeypress(key):
             global x,y,grid,running,oninteract,onkeypress
-            if key == b'c':
-                goto(3,4)
+            if key == b'h' and atpos(2,6):
+                goto(1,8)
+
+        # initial msg vars
+        setvar("t1",True)
         
-        if atpos(3,1):
-            print("Congratulations! You escaped the maze!\nPress any key to exit.")
-            running = False
+        messageat(1,6,"Press arrow keys to move.", getvar("t1"))
+        messageat(2,6,"Press 'h' for help.\n$1This will disappear after you go.$r",before=lambda: setvar("t1",False))
+        messageat(1,8,"Go to the slash '/'.\nGo right to go back.")
+        messageat(3,4,"Press [space] to interact.",showat(3,4)=="/")
+        messageat(3,4,"Go to the 'W'",showat(3,4)=="\\")
+        
+        if atpos(2,8):
+            goto(3,6)
+        
+        if atpos(3,6):
+            setat(1,6," ")
+            setat(2,6," ")
+            setat(1,5," ")
+            setat(2,5," ")
+
+        messageat(3,1,"The tutorial is over.",after=stop)
 
 
 
@@ -116,14 +135,16 @@ def main():
 
 if __name__ == "__main__":
     def reset():
-        global running,viewdistx,viewdisty
+        global running,viewdistx,viewdisty,v
         _viewdist = 7
         viewdistx = _viewdist
         viewdisty = _viewdist
+        v = {}
         running = True
 
         map_()
 
+    v:dict[Any]
     reset()
 
     def atpos(x_,y_):
@@ -154,6 +175,36 @@ if __name__ == "__main__":
         global x,y
         x = x_
         y = y_
+    
+    def messageat(x_,y_,msg,cond=True,before=lambda:None,after=lambda:None):
+        if atpos(x_,y_) and cond:
+            before()
+            # formatting
+            # black
+            msg=msg.replace("$0","\033[30m")
+            # red
+            msg=msg.replace("$1","\033[31m")
+            # green
+            msg=msg.replace("$2","\033[32m")
+            # yellow
+            msg=msg.replace("$3","\033[33m")
+            # blue
+            msg=msg.replace("$4","\033[34m")
+            # magenta
+            msg=msg.replace("$5","\033[35m")
+            # reset
+            msg=msg.replace("$r","\033[0m")
+            print(msg)
+            after()
+    def stop():
+        global running
+        running = False
+    def setvar(var:str,val):
+        global v
+        v[var] = val
+    def getvar(var:str):
+        global v
+        return v[var]
     # hide cursor
     print("\033[?25l")
 
