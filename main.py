@@ -15,68 +15,39 @@ for i in options:
 
 def map_():
     global x,y,grid,onupdate,running,oninteract,showat,setat,atpos,setvar,getvar,map_,onkeypress,oninteract,onkeypress,onupdate,debug,onload
-    x=1
-    y=6
+    x=2
+    y=1
     # wall: "#"
     # empty: " "
     grid = [
-        [" "," ","#","#","#"," "," "],
-        [" "," ","#","W","#"," "," "],
-        ["#","#","#","#","#","#","#"],
-        ["#"," "," "," "," "," ","#"],
-        ["#"," "," ","/"," "," ","#"],
-        ["#","#","#"," "," "," ","#"],
-        ["#","?","!"," "," "," ","#"],
-        ["#","#","#","#","#","#","#"],
-        ["#","h","b","#"," "," "," "],
-        ["#","#","#","#"," "," "," "],
+        ["#","#","#","#","#"],
+        ["#"," "," "," ","#"],
+        ["#"," ","/"," ","#"],
+        ["#"," "," "," ","#"],
+        ["#","#","#","#","#","#","#","#"],
+        ["#"," "," "," ","#"," ","/","#"],
+        ["#"," "," "," "," "," ","/","#"],
+        ["#"," "," "," ","#"," ","\\","#"],
+        ["#","#","#","#","#","#","#","#"],
     ]
     def onload():
         global x,y,grid,running,oninteract,onkeypress,setvar,getvar,showat,setat,atpos,map_,onkeypress,oninteract,onkeypress,onupdate,debug
-        # initial msg vars
-        setvar("t1",True)
-        setvar("t2",True)
 
     def onupdate():
         global x,y,grid,running,oninteract,onkeypress,setvar,getvar,showat,setat,atpos,map_,onkeypress,oninteract,onkeypress,onupdate,debug
-        if showat(3,4) == "\\":
-            setat(3,2," ")
-        else:
-            setat(3,2,"#")
-        
-        def onkeypress(key):
-            global x,y,grid,running,oninteract,onkeypress,setvar,getvar,showat,setat,atpos,map_,onkeypress,oninteract,onkeypress,onupdate,debug
-            if key == b'h' and atpos(2,6) and getvar("t1"):
-                goto(1,8)
-        
-        messageat(1,6,"Press arrow keys to move.", getvar("t1"))
-        messageat(2,6,"Press 'h' for help.\n$1This will disappear after you go.$r",getvar("t1"))
-        messageat(1,8,"Go to the slash '/'.\nGo right to go back.")
-        messageat(3,4,"Press [space] to interact.",showat(3,4)=="/"and getvar("t2"))
-        messageat(3,4,"Go to the 'W'",showat(3,4)=="\\",lambda:setvar("t2",False))
-        
-        if atpos(2,8):
-            goto(3,6)
-        
-        if atpos(3,6):
-            setat(1,6," ")
-            setat(2,6," ")
-            setat(1,5," ")
-            setat(2,5," ")
-            setat(0,8," ")
-            setat(1,8," ")
-            setat(2,8," ")
-            setat(3,8," ")
-            setat(0,9," ")
-            setat(1,9," ")
-            setat(2,9," ")
-            setat(3,9," ")
-            setvar("t1",False)
-
-        messageat(3,1,"The tutorial is over.",after=stop)
-        if atpos(3,1):
-            sl(1)
-            print("Press any key to continue.")
+        if showat(2,2) == '\\':
+            setat(2,4,' ')
+            setat(2,2,' ')
+        if atpos(2,5):
+            setat(2,4,"#\b-")
+            setat(2,5,"!")
+        messageat(2,5,"You are locked in this room.\nYou must find a way out.")
+        if showat(6,5)=='/'and showat(6,6)=='\\'and showat(6,7)=='/':
+            setat(6,5," ")
+            setat(6,6," ")
+            setat(6,7," ")
+            setat(6,8," ")
+        messageat(6,8,"You have escaped the room.",after=stop)
 
 
 
@@ -146,7 +117,7 @@ def main():
         elif char == b'r' and debug:
             # restart the program
             reset()
-            exec(open("main.py").read())
+            exec(open("main.py",encoding="utf8").read())
 
 
 if __name__ == "__main__":
@@ -182,9 +153,9 @@ if __name__ == "__main__":
         global x,y
         if debug: print(showat(x+dx,y+dy))
         
-        if showat(x+dx,y) != "#":
+        if showat(x+dx,y)[0] != "#":
             x += dx
-        if showat(x,y+dy) != "#":
+        if showat(x,y+dy)[0] != "#":
             y += dy
     
     def goto(x_,y_):
