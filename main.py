@@ -181,9 +181,9 @@ if __name__ == "__main__":
         global x,y
         if debug: print(showat(x+dx,y+dy))
         
-        if showat(x+dx,y) != "#":
+        if showat(x+dx,y)[0] != "#":
             x += dx
-        if showat(x,y+dy) != "#":
+        if showat(x,y+dy)[0] != "#":
             y += dy
     
     def goto(x_,y_):
