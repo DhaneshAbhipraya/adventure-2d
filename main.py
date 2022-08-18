@@ -1,6 +1,6 @@
 from libs import *
 
-f=open("options.txt","r")
+f=open("options.txt")
 options=f.read().splitlines()
 f.close()
 # field: debug
@@ -18,17 +18,17 @@ def map_():
     y=6
     # wall: "#"
     # empty: " "
-    grid = [
-        [" "," ","#","#","#"," "," "],
-        [" "," ","#","W","#"," "," "],
+    grid=[
+        [" "," ","#","#","#"],
+        [" "," ","#","W","#"],
         ["#","#","#","#","#","#","#"],
         ["#"," "," "," "," "," ","#"],
         ["#"," "," ","/"," "," ","#"],
         ["#","#","#"," "," "," ","#"],
         ["#","?","!"," "," "," ","#"],
         ["#","#","#","#","#","#","#"],
-        ["#","h","b","#"," "," "," "],
-        ["#","#","#","#"," "," "," "],
+        ["#","h","b","#"],
+        ["#","#","#","#"],
     ]
     def onload():
         global x,y,grid,running,oninteract,onkeypress,setvar,getvar,showat,setat,atpos,map_,onkeypress,oninteract,onkeypress,onupdate,debug
@@ -110,7 +110,7 @@ def main():
         try: onkeypress(char)
         except NameError: pass
         print(char) if debug else None
-        if char == b'\x00':
+        if char == b'\x00' or char == b'\xe0':
             char2 = getch()
             print(char2) if debug else None
             # up arrow
