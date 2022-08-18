@@ -82,7 +82,7 @@ def main():
         try: onkeypress(char)
         except NameError: pass
         print(char) if debug else None
-        if char == b'\x00':
+        if char == b'\x00' or char == b'\xe0':
             char2 = getch()
             print(char2) if debug else None
             # up arrow
