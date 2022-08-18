@@ -15,6 +15,8 @@ Todo:
 * Triggers
   * Buttons
 * ~~Doors~~ (Already possible with code)
+* Conveyor belts
+* ~~Teleporters~~ (Already possible with code)
 
 ## Requirements
 
