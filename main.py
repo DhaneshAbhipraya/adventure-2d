@@ -127,8 +127,9 @@ def main():
                 move(1,0)
         # escape
         elif char == b'\x1b':
-            print("\033[H\033[J",end="")
-            break
+            while True:
+                print("Paused (esc)",end='\r')
+                if getch() == b'\x1b': break
         # space
         elif char == b' ':
             try: oninteract()
